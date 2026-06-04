@@ -18,7 +18,8 @@ const allowedOrigins: string[] =
 
 app.use(
   cors({
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
+
       console.log("Request Origin:", origin);
 
       if (!origin) {
@@ -26,7 +27,8 @@ app.use(
       }
 
       if (
-        allowedOrigins.includes(origin)
+        origin === process.env.CLIENT_URL ||
+        origin.endsWith(".vercel.app")
       ) {
         return callback(null, true);
       }
