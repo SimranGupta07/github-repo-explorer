@@ -18,7 +18,24 @@ const allowedOrigins: string[] =
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      console.log("Request Origin:", origin);
+
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (
+        allowedOrigins.includes(origin)
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(
+        new Error("CORS blocked")
+      );
+    },
+    credentials: true,
   })
 );
 
