@@ -1,97 +1,49 @@
-# GitHub Repo Explorer
+# GitHub Repository Explorer
 
-A full-stack GitHub Repository Explorer built as part of the Studio Graphene Full Stack Developer assessment (Exercise 3). The application allows users to search GitHub profiles, view repository information, explore repository details, visualize language usage, and benefit from server-side caching and rate-limit protection through a Node.js backend proxy.
+A modern full-stack web application designed to explore GitHub profiles and repositories with enhanced performance, secure API integration, and insightful analytics. The application enables users to search GitHub accounts, browse repositories, analyze language usage, and view detailed repository information through an intuitive and responsive interface.
 
----
+## Project Overview
 
-## Live Demo
+This project was developed as part of the Studio Graphene Full Stack Developer Assessment. It demonstrates the ability to design and implement a scalable full-stack solution using modern TypeScript technologies, backend API integration, caching mechanisms, and responsive frontend development.
 
-### Frontend
+The application follows a client-server architecture where a Node.js backend acts as a secure proxy between the frontend and the GitHub API. This approach ensures secure token management, centralized error handling, improved performance through caching, and better rate-limit management.
 
-[Live Application](https://github-repo-explorer-taupe.vercel.app)
+## Key Features
 
-### Backend
-
-[Backend API](https://github-repo-explorer-85qw.onrender.com)
-
-
-<img width="950" height="428" alt="image" src="https://github.com/user-attachments/assets/3dff7d30-f1e5-4f27-ba62-5e2c4b583ff8" />
-
-<img width="623" height="431" alt="image" src="https://github.com/user-attachments/assets/a5fb3c92-493e-4820-8677-5874201d6eb2" />
-
-
----
-
-## Exercise Chosen
-
-**Exercise 3: GitHub Repo Explorer**
-
-The goal of this exercise was to build a full-stack application where users can search for GitHub profiles and repositories. The frontend communicates exclusively with a Node.js backend, which acts as a proxy to the GitHub API. This approach enables server-side caching, secure API token usage, and centralized error handling.
-
----
-
-## Key Highlights
-
-- Full-stack TypeScript application
-- Server-side GitHub API proxy
-- 60-second in-memory caching using NodeCache
-- GitHub Personal Access Token authentication
-- Debounced username suggestions
-- Expandable repository details
-- Language analytics dashboard
-- Responsive design for desktop and mobile
-- Deployed on Vercel and Render
-
----
-
-## Features
-
-### Core Features
+### User Search & Profile Exploration
 
 * Search GitHub users by username
-* Display user profile information
+* View profile details including avatar, bio, followers, following, and repository statistics
+* Intelligent username suggestions with debounced search
 
-  * Avatar
-  * Name
-  * Bio
-  * Followers
-  * Following
-  * Public repository count
-* Display public repositories
+### Repository Management
 
-  * Repository name
-  * Description
-  * Primary language
-  * Star count
-  * Last updated date
-* Sort repositories by:
+* Browse public repositories
+* Sort repositories by stars, name, or last updated date
+* Load additional repositories dynamically
+* View repository metadata including language, stars, and update history
 
-  * Stars
-  * Name
-  * Last Updated
-* User-friendly error handling
-* GitHub rate-limit handling
+### Repository Insights
 
-### Additional Features
+* Expand repositories to view detailed information
+* Display fork count, open issues, visibility status, creation date, and default branch
+* Visualize programming language distribution through analytics dashboards
 
-* Server-side caching (60-second TTL)
-* Repository "Load More" functionality
-* Expandable repository details
+### Performance & Scalability
 
-  * Open issues
-  * Fork count
-  * Default branch
-  * Visibility
-  * Creation date
-* Recently searched usernames (Local Storage)
-* GitHub username suggestions with debounce
-* Language distribution analytics
-* Responsive UI for desktop and mobile devices
-* GitHub API token authentication on the backend
+* Server-side caching using NodeCache
+* GitHub Personal Access Token authentication
+* Rate-limit protection and centralized API management
+* Optimized API requests through backend proxy architecture
 
----
+### User Experience
 
-## Tech Stack
+* Responsive design for desktop, tablet, and mobile devices
+* Clean and modern user interface
+* Recent search history stored locally
+* Comprehensive error handling and loading states
+
+## Technology Stack
 
 ### Frontend
 
@@ -104,7 +56,7 @@ The goal of this exercise was to build a full-stack application where users can 
 ### Backend
 
 * Node.js
-* Express
+* Express.js
 * TypeScript
 * Axios
 * NodeCache
@@ -114,310 +66,39 @@ The goal of this exercise was to build a full-stack application where users can 
 * Vercel (Frontend)
 * Render (Backend)
 
----
-
 ## Architecture
 
-```text
-React Frontend
-      │
-      ▼
-Node.js Express API
-      │
-      ▼
-GitHub API
-```
+Frontend applications communicate exclusively with the Node.js backend, which securely interacts with the GitHub API. This architecture provides:
 
-The frontend never communicates directly with GitHub.
+* Secure token storage
+* Reduced API requests through caching
+* Better rate-limit handling
+* Centralized business logic and error management
+* Improved maintainability and scalability
 
-Benefits:
+## Technical Highlights
 
-* Secure API token storage
-* Centralized error handling
-* Server-side caching
-* Reduced GitHub API requests
-* Better rate-limit management
+* Full-stack TypeScript implementation
+* REST API integration with GitHub
+* 60-second in-memory caching strategy
+* Debounced search optimization
+* Responsive component-based UI
+* Secure backend proxy architecture
+* Analytics visualization for repository languages
 
----
+## Future Enhancements
 
-## Environment Variables
+Potential improvements include:
 
-### Backend (.env)
-
-```env
-PORT=5000
-CLIENT_URL=http://localhost:5173
-GITHUB_TOKEN=your_github_personal_access_token
-```
-
-### Frontend (.env)
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
----
-
-## How to Run Locally
-
-### Clone Repository
-
-```bash
-git clone https://github.com/shivang0130/github-repo-explorer.git
-cd github-repo-explorer
-```
-
----
-
-### Backend Setup
-
-```bash
-cd server
-
-npm install
-
-npm run dev
-```
-
-Backend runs on:
-
-```text
-http://localhost:5000
-```
-
----
-
-### Frontend Setup
-
-```bash
-cd client
-
-npm install
-
-npm run dev
-```
-
-Frontend runs on:
-
-```text
-http://localhost:5173
-```
-
----
-
-## API Documentation
-
-### Get GitHub Profile
-
-#### Request
-
-```http
-GET /api/github/:username
-```
-
-#### Example
-
-```http
-GET /api/github/octocat
-```
-
-#### Response
-
-```json
-{
-  "user": {
-    "login": "octocat",
-    "name": "The Octocat"
-  },
-  "repos": []
-}
-```
-
----
-
-### Get Username Suggestions
-
-#### Request
-
-```http
-GET /api/github/suggestions/:query
-```
-
-#### Example
-
-```http
-GET /api/github/suggestions/oct
-```
-
-#### Response
-
-```json
-[
-  "octocat",
-  "octodemo",
-  "octokit"
-]
-```
-
----
-
-### Get Repository Details
-
-#### Request
-
-```http
-GET /api/repositories/:owner/:repo
-```
-
-#### Example
-
-```http
-GET /api/repositories/facebook/react
-```
-
-#### Response
-
-```json
-{
-  "open_issues_count": 1200,
-  "forks_count": 48000,
-  "default_branch": "main",
-  "visibility": "public"
-}
-```
-
----
-
-## Project Structure
-
-```text
-github-repo-explorer/
-│
-├── client/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── types/
-│   │   └── App.tsx
-│   │
-│   └── package.json
-│
-├── server/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── types/
-│   │   ├── app.ts
-│   │   └── server.ts
-│   │
-│   └── package.json
-│
-└── README.md
-```
-
----
-
-## Caching Strategy
-
-The application uses NodeCache with:
-
-```text
-TTL: 60 seconds
-```
-
-If the same GitHub username is requested within 60 seconds, the cached response is returned instead of making another GitHub API request.
-
-Benefits:
-
-* Faster responses
-* Reduced GitHub API usage
-* Better handling of rate limits
-
----
-
-## Challenges & Decisions
-
-### Why Use a Backend Proxy?
-
-Instead of calling GitHub directly from the browser:
-
-* GitHub token remains secure
-* Cache can be implemented server-side
-* API requests can be controlled centrally
-* Better error handling
-
-### Why Implement Debounced Suggestions?
-
-* Reduces unnecessary API calls
-* Improves user experience
-* Makes username discovery easier
-
-### Why Implement Server-Side Caching?
-
-GitHub's unauthenticated API has strict rate limits.
-
-Implementing a 60-second cache:
-- Reduces API calls
-- Improves response times
-- Minimizes rate-limit issues
-- Provides a better user experience
-
-### Why Use a GitHub Token?
-
-Public GitHub API requests can quickly hit rate limits in cloud environments.
-
-Using a server-side token:
-- Increases API limits
-- Keeps credentials secure
-- Prevents exposing secrets to the browser
-
----
-
-## Future Improvements
-
-If given additional time, I would implement:
-
-* Unit and integration tests
-* Skeleton loading components
-* Repository search and filtering
+* Automated testing (Unit & Integration)
+* Advanced repository filtering and search
 * Docker containerization
-* CI/CD pipeline using GitHub Actions
-* AI-powered repository insights using LLM APIs to generate summaries of a user's GitHub activity and technology stack
+* CI/CD pipelines using GitHub Actions
+* AI-powered repository analysis and developer insights
+* Enhanced monitoring and performance analytics
 
----
+## Outcome
 
-## AI-Assisted Development
+This project demonstrates proficiency in full-stack web development, API integration, backend optimization, responsive UI design, deployment workflows, and modern software engineering practices. The implementation focuses on both functional requirements and production-ready considerations such as security, scalability, performance, and maintainability.
 
-AI tools were used to accelerate development, debugging, architectural decision-making, and code review throughout the project. All generated code was reviewed, tested, and adapted to fit the application's requirements.
-
-This reflects an AI-native development workflow while maintaining engineering ownership and code quality.
-
----
-
-## Acknowledgements
-
-* GitHub REST API
-* React
-* Express
-* Tailwind CSS
-* Recharts
-* Axios
-
----
-
-## Conclusion
-
-This project demonstrates full-stack application development using modern TypeScript tooling, API integrations, caching strategies, responsive UI development, deployment workflows, and AI-assisted engineering practices.
-
-The focus was not only on meeting the functional requirements but also on implementing production-oriented considerations such as caching, rate-limit handling, secure API access, and scalable architecture.
-
----
-
-## Author
-
-Shivang Gupta
-
-Built as part of the Studio Graphene Full Stack Developer Assessment.
+**Author:** Simran Gupta
